@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a2b"><title>Churn Signal | Customer risk</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body><main class="shell">
+<header><div class="brand"><span class="mark" aria-hidden="true">CS</span><div><p class="eyebrow">CUSTOMER INTELLIGENCE</p><h1>Churn Signal</h1></div></div><div class="status"><span class="dot"></span><span id="service-state">Checking model…</span></div></header>
+<section class="intro"><div><p class="eyebrow">RETENTION WORKSPACE</p><h2>Find the signal.<br><em>Keep the customer.</em></h2><p class="lede">Explore a customer profile to estimate churn risk. Use this score as a review signal—not an automated decision.</p></div><aside><span class="aside-tag">MODEL</span><strong id="model-label">Loading</strong><small id="model-detail">Local model metadata</small></aside></section>
+<div class="layout"><form id="predict-form" novalidate><section class="card"><div class="card-head"><div><p class="eyebrow">CUSTOMER PROFILE</p><h3>Plan & account</h3></div><span class="step">01 / 03</span></div><div class="grid">
+<label>State code<input name="State" value="CA" required pattern="[A-Za-z]{2}" maxlength="2" autocomplete="off"><small>Two-letter code</small></label>
+<label>Account length<input name="Account Length" type="number" min="1" max="5000" value="120" required></label>
+<label>Area code<input name="Area Code" type="number" min="100" max="999" value="415" required></label>
+<label>International plan<select name="Int'l Plan"><option value="no">No</option><option value="yes">Yes</option></select></label>
+<label>Voicemail plan<select name="VMail Plan"><option value="no">No</option><option value="yes">Yes</option></select></label>
+<label>Voicemail messages<input name="VMail Message" type="number" min="0" max="1000" value="0" required></label>
+</div></section>
+<section class="card"><div class="card-head"><div><p class="eyebrow">USAGE PATTERNS</p><h3>Calls & charges</h3></div><span class="step">02 / 03</span></div><div class="grid">
+<label>Day minutes<input name="Day Mins" type="number" min="0" max="2000" step="0.1" value="180" required></label><label>Day calls<input name="Day Calls" type="number" min="0" max="1000" value="100" required></label><label>Day charge<input name="Day Charge" type="number" min="0" max="1000" step="0.01" value="30.6" required></label>
+<label>Evening minutes<input name="Eve Mins" type="number" min="0" max="2000" step="0.1" value="200" required></label><label>Evening calls<input name="Eve Calls" type="number" min="0" max="1000" value="100" required></label><label>Evening charge<input name="Eve Charge" type="number" min="0" max="1000" step="0.01" value="17" required></label>
+<label>Night minutes<input name="Night Mins" type="number" min="0" max="2000" step="0.1" value="200" required></label><label>Night calls<input name="Night Calls" type="number" min="0" max="1000" value="100" required></label><label>Night charge<input name="Night Charge" type="number" min="0" max="1000" step="0.01" value="9" required></label>
+<label>International minutes<input name="Intl Mins" type="number" min="0" max="2000" step="0.1" value="10" required></label><label>International calls<input name="Intl Calls" type="number" min="0" max="1000" value="4" required></label><label>International charge<input name="Intl Charge" type="number" min="0" max="1000" step="0.01" value="2.7" required></label>
+<label class="wide">Customer service calls<input name="CustServ Calls" type="number" min="0" max="1000" value="1" required><small>Calls to support during the account period</small></label>
+</div><div class="actions"><p id="error" role="alert" aria-live="polite"></p><button id="submit" type="submit">Estimate churn risk <span aria-hidden="true">↗</span></button></div></section></form>
+<aside class="result" aria-live="polite" aria-atomic="true"><p class="eyebrow">PREDICTION</p><div id="empty"><div class="orb">◎</div><h3>Your result<br>will appear here</h3><p>Complete the profile and run an estimate to view the model’s assessment.</p></div><div id="answer" hidden><div class="score-head"><span id="risk-chip" class="chip">—</span><strong id="score">—<small>%</small></strong></div><p class="score-caption">estimated churn probability</p><div class="meter"><span id="meter"></span></div><p id="classification" class="classification"></p><div class="why"><h4>Signals to review</h4><ul id="reasons"></ul></div></div><div class="notice">Decision support only. Validate with current customer context; this model may reflect bias or dataset limitations.</div></aside>
+</div><footer><span>Customer Churn Risk · Local inference</span><span>Training data: telco churn sample · 3,333 records</span></footer>
+</main><script src="/static/app.js" defer></script></body></html>
