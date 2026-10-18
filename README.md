@@ -70,12 +70,12 @@ The image trains its model during build from the included sample, runs as non-ro
 
 ## Kubernetes / Singapore k3s deployment prerequisites
 
-`k8s/customer-churn.yaml` is a template only; nothing in this repository has been deployed. Before application:
+`k8s/customer-churn.yaml` is the deployment contract. The current Singapore deployment uses the dedicated `customer-churn` namespace and hostname `customer-churn.aljufairi.org`. Before changing or recreating it:
 
 1. Review/authorize image distribution and build/publish the image in a trusted pipeline; use an immutable image tag.
 2. The deployment template targets `customer-churn.aljufairi.org`, Traefik, and the existing `cloudflare-issuer`; update them only if the approved hostname or cluster conventions differ.
 3. Review namespace quotas, DNS/TLS, resource limits, network policies, and data/privacy approval. The model artifact ships inside the image; no AWS credentials or cloud dependency is configured.
-4. Apply only after cluster-owner approval: `kubectl apply -f k8s/customer-churn.yaml`; verify `kubectl -n customer-churn rollout status deploy/customer-churn`, Service/Ingress and `/ready` externally.
+4. Apply only after cluster-owner approval: `kubectl apply -f k8s/customer-churn.yaml`; verify `kubectl -n customer-churn rollout status deploy/customer-churn`, Service/Ingress and `/ready` externally. The current rollout was imported directly into k3s containerd from immutable image tag `f9af89972cdbb8b5b9e38b1142ec24ac5a069d4a`; its local image ID is `sha256:54ccbb741eb1e252870f7f1e6b65f537abb7384de2e52532f0a616bcc178c201`.
 
 Rollback: `kubectl -n customer-churn rollout undo deployment/customer-churn` restores the previous ReplicaSet. To remove only this application: `kubectl delete -f k8s/customer-churn.yaml` (this includes its dedicated namespace). Do not apply against unrelated namespaces.
 
