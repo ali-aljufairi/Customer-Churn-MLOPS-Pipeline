@@ -31,7 +31,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: api
-          image: ghcr.io/ali-aljufairi/customer-churn-mlops:c8e9ecbfcc8980a981884ec53060497a181e5835
+          image: ghcr.io/ali-aljufairi/customer-churn-mlops:f97400bbadbb6e10839defb56e5aa0b9239ca0b9
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
