@@ -2,6 +2,12 @@ const form=document.querySelector('#predict-form');
 const state=document.querySelector('#service-state');
 fetch('/ready').then(r=>{if(!r.ok)throw Error();state.textContent='Model ready';}).catch(()=>{state.textContent='Model unavailable';state.classList.add('bad');});
 fetch('/metadata').then(r=>r.ok?r.json():Promise.reject()).then(m=>{document.querySelector('#model-label').textContent=m.model_name;document.querySelector('#model-detail').textContent=`v${m.model_version} · ROC AUC ${(m.metrics.roc_auc*100).toFixed(1)}%`;}).catch(()=>{document.querySelector('#model-label').textContent='Unavailable';document.querySelector('#model-detail').textContent='Train the model to enable estimates';});
+
+document.querySelectorAll('input[type="number"]').forEach(input=>{
+ const wrap=document.createElement('span'); wrap.className='number-control'; input.parentNode.insertBefore(wrap,input); wrap.append(input);
+ const makeButton=(label,delta)=>{const button=document.createElement('button');button.type='button';button.className='stepper';button.setAttribute('aria-label',`${label} ${input.name}`);button.textContent=delta<0?'−':'+';button.addEventListener('click',()=>{const step=Number(input.step)||1;const min=input.min===''?-Infinity:Number(input.min);const max=input.max===''?Infinity:Number(input.max);const next=Math.min(max,Math.max(min,Number(input.value||0)+delta*step));input.value=Number.isInteger(step)?next:Number(next.toFixed(2));input.dispatchEvent(new Event('input',{bubbles:true}));});return button;};
+ wrap.append(makeButton('Decrease',-1),makeButton('Increase',1));
+});
 form.addEventListener('submit',async event=>{
  event.preventDefault(); const error=document.querySelector('#error'); error.textContent='';
  if(!form.reportValidity())return;
