@@ -82,3 +82,11 @@ Rollback: `kubectl -n customer-churn rollout undo deployment/customer-churn` res
 ## Limits
 
 One small public sample dataset and one fixed split do not establish robustness, calibration, drift tolerance, fairness, business value, or production scale. No online retraining, AWS/Lambda, authentication, user identity, per-customer persistence, or request logging is implemented. Restrict network access and add identity/access controls before exposing beyond a trusted environment.
+
+## Live deployment and privacy
+
+Live demo: https://customer-churn.aljufairi.org
+
+This application source branch is based on exact deployed commit 1e2c19014d4bb37afe45abb7af24b83a19807c39; the default branch currently contains the older notebook only. Do not replace notebook history or claim source parity from main.
+
+Only the `/` landing page sends a privacy-minimized pageview to metrics.aljufairi.org. Form values, predictions, API paths, queries and fragments are not collected. No cookies/storage/replay. Designer icons are served under /static/.
