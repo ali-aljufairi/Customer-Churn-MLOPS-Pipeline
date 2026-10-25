@@ -31,7 +31,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: api
-          image: ghcr.io/ali-aljufairi/customer-churn-mlops:1e2c19014d4bb37afe45abb7af24b83a19807c39
+          image: docker.io/library/analytics-churn:80d9f60
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
